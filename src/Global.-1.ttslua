@@ -96,6 +96,25 @@ function buttonClicked()
 
     if isDebug == true then print("Deck shuffled!") end
 
+    --make array of colors
+
+    --loop thru array and count players
+
+    --if more than 4
+
+        --add another deck
+
+    --if more than 6
+
+        --add another deck
+
+    --loop thru color array
+
+        --if player is here
+
+            --deal them cards given player color
+
+
     for i=1, 4 do
         if isDebug == true then print("Row " .. i) end
         for j=1, 5 do
@@ -114,6 +133,43 @@ function buttonClicked()
 
     if isDebug == true then print("Cards delt!") end
 end
+
+--function dealCards(player)
+
+--array of colors
+
+--array of ancorX points
+
+--array of ancorY points
+
+--array of transX directions
+
+--array of transY directions
+
+--array of rowX for row 2 addition
+
+--array of rowY for row 2 addition
+
+--array of card rotations 0-360
+
+--temp var of nextX == ancorX
+
+--temp var of nextY == ancorY
+
+--for all 10 cards needing to be delt in row
+
+    --deal to nextX and nextY with card rotation
+
+    --add transX to nextX
+
+    --add transY to nextY
+
+    --if index is 5
+
+        --set nextX equal to ancorX plus rowX
+
+        --set nextY equal to ancorY plus rowY
+
 
 function dealCard(i,j)
     k=1
