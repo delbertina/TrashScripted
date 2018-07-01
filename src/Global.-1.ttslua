@@ -1,0 +1,245 @@
+--Created by Taylor "delbertina"
+--Started Jan 2017
+--All code is my work and my work only.
+
+deck_GUID = '6beeda'
+checker_GUID = 'db9231'
+checker1_GUID = 'cf7bff'
+checker2_GUID = 'c3b810'
+checker3_GUID = '70c740'
+
+isDebug = false
+isManual = false
+isAdvanced = false
+
+button_parameters = {}
+button_parameters.click_function = 'buttonClicked'
+button_parameters.function_owner = nil
+button_parameters.label = 'Start'
+button_parameters.position = {0,0,0}
+button_parameters.rotation = {0,0,180}
+button_parameters.width = 1500
+button_parameters.height = 1000
+button_parameters.font_size = 500
+
+button1_parameters = {}
+button1_parameters.click_function = 'button1Clicked'
+button1_parameters.function_owner = nil
+button1_parameters.label = 'Manual: Off'
+button1_parameters.position = {0,0,0}
+button1_parameters.rotation = {0,0,180}
+button1_parameters.width = 1500
+button1_parameters.height = 700
+button1_parameters.font_size = 250
+
+button2_parameters = {}
+button2_parameters.click_function = 'button2Clicked'
+button2_parameters.function_owner = nil
+button2_parameters.label = 'Advanced: Off'
+button2_parameters.position = {0,0,0}
+button2_parameters.rotation = {0,0,180}
+button2_parameters.width = 1900
+button2_parameters.height = 700
+button2_parameters.font_size = 250
+
+button3_parameters = {}
+button3_parameters.click_function = 'button3Clicked'
+button3_parameters.function_owner = nil
+button3_parameters.label = 'Debug: Off'
+button3_parameters.position = {0,0,0}
+button3_parameters.rotation = {0,0,180}
+button3_parameters.width = 1500
+button3_parameters.height = 700
+button3_parameters.font_size = 250
+
+function onload()
+
+    deck = getObjectFromGUID(deck_GUID)
+    checker = getObjectFromGUID(checker_GUID)
+    checker1 = getObjectFromGUID(checker1_GUID)
+    checker2 = getObjectFromGUID(checker2_GUID)
+    checker3 = getObjectFromGUID(checker3_GUID)
+
+    --deck1.setName('Deck1')
+    --checker.setName('Stupid Checker')
+
+    checker.createButton(button_parameters)
+    checker1.createButton(button1_parameters)
+    checker2.createButton(button2_parameters)
+    checker3.createButton(button3_parameters)
+
+    --checker.flip()
+
+    isDebug = false
+    isManual = false
+    isAdvanced = false
+
+end
+
+function buttonClicked()
+    if isDebug == true then print('Heyooo I\'m Rico!') end
+
+    checker.removeButton(0)
+    checker.destruct()
+    checker1.removeButton(0)
+    checker1.destruct()
+    checker2.removeButton(0)
+    checker2.destruct()
+    checker3.removeButton(0)
+    checker3.destruct()
+
+    if isManual == true then return(1) end
+
+    deck.shuffle()
+    deck.shuffle()
+    deck.shuffle()
+
+    if isDebug == true then print("Deck shuffled!") end
+
+    for i=1, 4 do
+        if isDebug == true then print("Row " .. i) end
+        for j=1, 5 do
+            dealCard(i, j)
+            if isDebug == true then print("Column " .. j) end
+
+            --coroutine.yield()
+        end
+    end
+
+    dealdraw_params = {}
+    dealdraw_params.position = {4,3,0}
+    dealdraw_params.flip = true
+    deck.takeObject(dealdraw_params)
+    --dealCard(5,4)
+
+    if isDebug == true then print("Cards delt!") end
+end
+
+function dealCard(i,j)
+    k=1
+    l=1
+
+    if i==1 then
+        k = 12
+    elseif i==2 then
+        k = 8
+    elseif i==3 then
+        k = -8
+    elseif i==4 then
+        k = -12
+    else
+        k = 0
+    end
+
+    if j==1 then
+        l = -8
+    elseif j==2 then
+        l = -4
+    elseif j==3 then
+        l = 0
+    elseif j==4 then
+        l = 4
+    else
+        l = 8
+    end
+
+    deal_params = {}
+    deal_params.position = {l,3,k}
+
+    deck.takeObject(deal_params)
+
+    if isDebug == true then print("Card " .. i .. j .. " delt") end
+end
+
+function button1Clicked()
+    if isDebug == true then print("Option 1") end
+
+    manualoff_parameters = {}
+    manualoff_parameters.index = 0
+    manualoff_parameters.label = 'Manual: Off'
+
+    manualon_parameters = {}
+    manualon_parameters.index = 0
+    manualon_parameters.label = 'Manual: On'
+
+    if isManual == true then
+        if isDebug == true then print("Manual was on!") end
+        isManual = false
+
+        checker1.editButton(manualoff_parameters)
+
+    else
+        if isDebug == true then print("Manual was off!") end
+        isManual = true
+
+        checker1.editButton(manualon_parameters)
+
+    end
+end
+
+function button2Clicked()
+    if isDebug == true then print("Option 2") end
+
+    advancedoff_parameters = {}
+    advancedoff_parameters.index = 0
+    advancedoff_parameters.label = 'Advanced: Off'
+
+    advancedon_parameters = {}
+    advancedon_parameters.index = 0
+    advancedon_parameters.label = 'Advanced: On'
+
+    if isAdvanced == true then
+        if isDebug == true then print("Advanced was on!") end
+        isAdvanced = false
+
+        checker2.editButton(advancedoff_parameters)
+
+    else
+        if isDebug == true then print("Advanced was off!") end
+        isAdvanced = true
+
+        checker2.editButton(advancedon_parameters)
+
+    end
+end
+
+function button3Clicked()
+    if isDebug == true then print("Option 3") end
+
+    buttonoff_parameters = {}
+    buttonoff_parameters.index = 0
+    buttonoff_parameters.label = 'Debug: Off'
+
+    buttonon_parameters = {}
+    buttonon_parameters.index = 0
+    buttonon_parameters.label = 'Debug: On'
+
+    if isDebug == true then
+        if isDebug == true then print("Debug was on!") end
+        isDebug = false
+
+        checker3.editButton(buttonoff_parameters)
+
+    else
+        if isDebug == true then print("Debug was off!") end
+        isDebug = true
+
+        checker3.editButton(buttonon_parameters)
+
+    end
+
+end
+--[[
+function setup()
+    startLuaCoroutine(Global, 'setupCoroutine')
+end
+
+function sleep(n)  -- seconds
+local t0 = os.clock()
+while os.clock() - t0 <=   n do coroutine.yield(0) end
+end
+
+function wait(numFrames)
+    for i=1,numFrames,1 do coroutine.yield(0) end
+end
+--]]
